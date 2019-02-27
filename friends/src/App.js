@@ -14,7 +14,7 @@ class App extends Component {
       potentialNewFriend: {
         id: "",
         name: "",
-        age: 0,
+        age: "",
         email: "",
         color: "",
         favefood: "",
@@ -43,23 +43,26 @@ class App extends Component {
     });
   };
 
-  // changeHandlerNested = (e, timestamp) => {
-  //   e.preventDefault();
-  //   const postIndex = this.state.data.findIndex(
-  //     post => post.timestamp === timestamp
-  //   );
-  //   let tempData = [...this.state.data];
-  //   // The following was very difficult to debug. Since [e.target.name] is being used as a property name here, why isn't it: tempData[postIndex].[e.target.name] (with a dot)
-  //   tempData[postIndex][e.target.name] = e.target.value;
-  //   this.setState({
-  //     data: tempData
-  //   });
-  // };
-
-  addNewFriend = () => {};
+  addNewFriend = () => {
+    axios
+      .post("http://localhost:5000/friends", {
+        id: uuid.v4(),
+        name: this.state.potentialNewFriend.name,
+        age: parseInt(this.state.potentialNewFriend.age, 10),
+        email: this.state.potentialNewFriend.email,
+        color: this.state.potentialNewFriend.color,
+        favefood: this.state.potentialNewFriend.favefood,
+        quotation: this.state.potentialNewFriend.quotation
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
-    console.log(uuid.v4());
     return (
       <div className="App">
         <Route

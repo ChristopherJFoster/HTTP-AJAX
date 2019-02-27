@@ -1,56 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
 const app = express();
-let nextId = 7;
 
-function getNewId() {
-  return nextId++;
-}
+// Commented these out because I'm using uuid to generate ids:
+// let nextId = 7;
+// function getNewId() {
+//   return nextId++;
+// }
 
-// let friends = [
-//   {
-//     id: 1,
-//     name: 'Ben',
-//     age: 30,
-//     email: 'ben@lambdaschool.com',
-//   },
-//   {
-//     id: 2,
-//     name: 'Austen',
-//     age: 32,
-//     email: 'austen@lambdaschool.com',
-//   },
-//   {
-//     id: 3,
-//     name: 'Ryan',
-//     age: 35,
-//     email: 'ryan@lambdaschool.com',
-//   },
-//   {
-//     id: 4,
-//     name: 'Sean',
-//     age: 35,
-//     email: 'sean@lambdaschool.com',
-//   },
-//   {
-//     id: 5,
-//     name: 'Michelle',
-//     age: 67,
-//     email: 'michelle@gmail.com',
-//   },
-//   {
-//     id: 6,
-//     name: 'Luis',
-//     age: 47,
-//     email: 'luis@lambdaschool.com',
-//   },
-// ];
-
-const friends = [
+let friends = [
   {
-    id: 1,
+    id: "a4a5c672-9696-4523-b57d-a3db47b6422d",
     name: "Apple",
     age: 27,
     email: "apple@gmail.com",
@@ -59,7 +20,7 @@ const friends = [
     quotation: "An apple a day...terrifies me."
   },
   {
-    id: 2,
+    id: "37b81aec-6af0-426d-9d4c-9fa5cc1e0d8c",
     name: "Book",
     age: 23,
     email: "book@gmail.com",
@@ -68,7 +29,7 @@ const friends = [
     quotation: "You may judge me by my cover."
   },
   {
-    id: 3,
+    id: "39a853e0-e241-4b60-89e1-7b3dc702590f",
     name: "Carbon",
     age: 68,
     email: "carbon@gmail.com",
@@ -78,7 +39,7 @@ const friends = [
       "No one ever heard of carbon poisoning. Not _just_ carbon anyway..."
   },
   {
-    id: 4,
+    id: "67e29dfe-959e-491c-ac6d-6ead940c9e4f",
     name: "Diligence",
     age: 39,
     email: "diligence@gmail.com",
@@ -88,7 +49,7 @@ const friends = [
       "Genius is 1% inspiration and 99% me. Think about that for a minute. Now get back to work."
   },
   {
-    id: 5,
+    id: "2677f21f-b371-4a1c-8c40-c614c0eb36a5",
     name: "Estuary",
     age: 47,
     email: "estuary@gmail.com",
@@ -97,7 +58,7 @@ const friends = [
     quotation: "Grahhbbllllhleh..."
   },
   {
-    id: 6,
+    id: "c3bf9686-9023-4496-b72a-53d13b837c98",
     name: "Thurday",
     age: 22,
     email: "thursday@gmail.com",
@@ -115,7 +76,9 @@ app.get("/friends", (req, res) => {
 });
 
 app.post("/friends", (req, res) => {
-  const friend = { id: getNewId(), ...req.body };
+  // Commented these out because I'm using uuid to generate ids:
+  // const friend = { id: getNewId(), ...req.body };
+  const friend = { ...req.body };
   friends = [...friends, friend];
   res.status(201).json(friends);
 });
