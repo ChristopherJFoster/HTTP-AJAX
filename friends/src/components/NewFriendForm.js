@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Friend = ({ friend }) => {
+export const NewFriendForm = ({ friend }) => {
   return (
     <div>
       <h2>{friend.name}</h2>

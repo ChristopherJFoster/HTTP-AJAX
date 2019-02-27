@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Friend } from "./components/Friend";
+import { Route, Redirect } from "react-router-dom";
+import { FriendsList } from "./components/FriendsList";
+import { NewFriendForm } from "./components/NewFriendForm";
 import "./App.css";
 
 class App extends Component {
@@ -25,12 +27,29 @@ class App extends Component {
       });
   }
 
+  addNewFriend = () => {};
+
+  openNewFriendForm = () => {};
+
   render() {
     return (
       <div className="App">
-        {this.state.friends.map(friend => (
-          <Friend friend={friend} />
-        ))}
+        <Route
+          exact
+          path="/"
+          component={() => <Redirect to="/friendslist" />}
+        />
+        <Route
+          exact
+          path="/friendslist"
+          render={routeProps => (
+            <FriendsList
+              {...routeProps}
+              friends={this.state.friends}
+              addNewFriend={this.addNewFriend}
+            />
+          )}
+        />
       </div>
     );
   }
