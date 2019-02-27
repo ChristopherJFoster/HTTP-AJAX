@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Friend } from "./components/Friend";
 import "./App.css";
 
 class App extends Component {
@@ -9,10 +10,9 @@ class App extends Component {
       friends: []
     };
   }
+
   componentDidMount() {
     console.log("CDM now running");
-    // http://localhost:3333 is the address to the server doorstep
-    // /items is the "endpoint"
     axios
       .get("http://localhost:5000/friends")
       .then(res => {
@@ -21,14 +21,16 @@ class App extends Component {
       })
       .catch(err => {
         console.log(err);
-        // this.setState({ error: err });
+        this.setState({ error: err });
       });
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header" />
+        {this.state.friends.map(friend => (
+          <Friend friend={friend} />
+        ))}
       </div>
     );
   }
