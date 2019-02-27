@@ -1,9 +1,22 @@
 import React from "react";
 
-export const NewFriendForm = ({ addNewFriend }) => {
+export const NewFriendForm = ({
+  potentialNewFriend,
+  handleChanges,
+  addNewFriend
+}) => {
   return (
-    <div>
-      <h2>New Friend Form Goes Here</h2>
-    </div>
+    <form onSubmit={addNewFriend}>
+      <input
+        type="text"
+        value={potentialNewFriend.name}
+        name="name"
+        onChange={handleChanges}
+        placeholder="Name"
+      />
+      <button className="add-task" type="submit">
+        Add New Friend
+      </button>
+    </form>
   );
 };
