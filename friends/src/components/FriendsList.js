@@ -1,12 +1,13 @@
 import React from "react";
 import { Friend } from "./Friend";
+import { Link } from "react-router-dom";
 
-export const FriendsList = ({ friends, addNewFriend }) => {
+export const FriendsList = ({ friends }) => {
   return (
     <div className="friends-list">
-      <button onClick={addNewFriend}>Add New Friend</button>
+      <Link to="/newfriendform">Add a New Friend</Link>
       {friends.map(friend => (
-        <Friend friend={friend} />
+        <Friend key={friend.id} friend={friend} />
       ))}
     </div>
   );

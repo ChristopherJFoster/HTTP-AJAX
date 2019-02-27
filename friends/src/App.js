@@ -14,22 +14,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("CDM now running");
     axios
       .get("http://localhost:5000/friends")
       .then(res => {
-        console.log(res);
         this.setState({ friends: res.data });
       })
       .catch(err => {
-        console.log(err);
         this.setState({ error: err });
       });
   }
 
   addNewFriend = () => {};
-
-  openNewFriendForm = () => {};
 
   render() {
     return (
@@ -43,11 +38,13 @@ class App extends Component {
           exact
           path="/friendslist"
           render={routeProps => (
-            <FriendsList
-              {...routeProps}
-              friends={this.state.friends}
-              addNewFriend={this.addNewFriend}
-            />
+            <FriendsList {...routeProps} friends={this.state.friends} />
+          )}
+        />
+        <Route
+          path="/newfriendform"
+          render={routeProps => (
+            <NewFriendForm {...routeProps} addNewFriend={this.addNewFriend} />
           )}
         />
       </div>

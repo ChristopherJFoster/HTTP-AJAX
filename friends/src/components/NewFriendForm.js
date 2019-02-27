@@ -1,14 +1,9 @@
 import React from "react";
 
-export const NewFriendForm = ({ friend }) => {
+export const NewFriendForm = ({ addNewFriend }) => {
   return (
     <div>
-      <h2>{friend.name}</h2>
-      <p>Age: {friend.age}</p>
-      <p>Email: {friend.email}</p>
-      <p>Color: {friend.color}</p>
-      <p>Favorite Food: {friend.favefood}</p>
-      <h4>"{friend.quotation}"</h4>
+      <h2>New Friend Form Goes Here</h2>
     </div>
   );
 };
