@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 export const EditFriendForm = ({
   potentialFriendChanges,
   handleChanges,
-  submitFriendEdits
+  submitFriendEdits,
+  history
 }) => {
   return (
-    <form onSubmit={submitFriendEdits}>
+    <form onSubmit={() => submitFriendEdits(history)}>
       <input
         required
         type="text"

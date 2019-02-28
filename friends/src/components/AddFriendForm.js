@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 export const AddFriendForm = ({
   potentialFriendChanges,
   handleChanges,
-  addFriend
+  submitFriend,
+  history
 }) => {
   return (
-    <form onSubmit={addFriend}>
+    <form onSubmit={() => submitFriend(history)}>
       <input
         required
         type="text"

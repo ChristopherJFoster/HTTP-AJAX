@@ -60,7 +60,7 @@ class App extends Component {
     history.push("/addfriendform");
   };
 
-  submitNewFriend = () => {
+  submitFriend = history => {
     axios
       .post("http://localhost:5000/friends", {
         id: uuid.v4(),
@@ -77,9 +77,11 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
+    history.push("/friendslist");
   };
 
   editFriend = (id, history) => {
+    // Cases in which some code needs to be executed immediately prior to loading a component/page seem like good candidates for using history to route to a new url (instead of <a>, <Link>, or <NavLink>). It was fun working out first _that_ I needed to pass the history object down to the Friend component, and then working out _how_ (since the Friend component does not have its own Route).
     const friendToEdit = this.state.friends.filter(
       friend => friend.id === id
     )[0];
@@ -87,7 +89,40 @@ class App extends Component {
     history.push("/editfriendform");
   };
 
-  submitFriendEdits = () => {};
+  submitFriendEdits = history => {
+    axios
+      .put("http://localhost:5000/friends", {
+        id: this.state.potentialFriendChanges.id,
+        name: this.state.potentialFriendChanges.name,
+        age: parseInt(this.state.potentialFriendChanges.age, 10),
+        email: this.state.potentialFriendChanges.email,
+        color: this.state.potentialFriendChanges.color,
+        favefood: this.state.potentialFriendChanges.favefood,
+        quotation: this.state.potentialFriendChanges.quotation
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    history.push("/friendslist");
+  };
+
+  deleteFriend = (id, history) => {
+    console.log(id);
+    axios
+      .delete("http://localhost:5000/friends", {
+        id: id
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    history.push("/friendslist");
+  };
 
   render() {
     return (
@@ -117,7 +152,7 @@ class App extends Component {
               {...routeProps}
               potentialFriendChanges={this.state.potentialFriendChanges}
               handleChanges={this.handleChanges}
-              submitNewFriend={this.submitNewFriend}
+              submitFriend={this.submitFriend}
             />
           )}
         />

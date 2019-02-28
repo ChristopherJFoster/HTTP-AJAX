@@ -59,7 +59,7 @@ let friends = [
   },
   {
     id: "c3bf9686-9023-4496-b72a-53d13b837c98",
-    name: "Thurday",
+    name: "Thursday",
     age: 22,
     email: "thursday@gmail.com",
     color: "cinnamon",
@@ -76,20 +76,21 @@ app.get("/friends", (req, res) => {
 });
 
 app.post("/friends", (req, res) => {
-  // Commented these out because I'm using uuid to generate ids:
+  // Commented this out because I'm using uuid to generate ids:
   // const friend = { id: getNewId(), ...req.body };
   const friend = { ...req.body };
   friends = [...friends, friend];
   res.status(201).json(friends);
 });
 
-app.put("/friends/:id", (req, res) => {
-  const { id } = req.params;
+// Aha! I figured out to make a put request using the submitted friend id (rather than a friend-specific url):
+app.put("/friends", (req, res) => {
+  const id = req.body.id;
   let friendIndex = friends.findIndex(friend => friend.id == id);
 
   if (friendIndex >= 0) {
     friends[friendIndex] = { ...friends[friendIndex], ...req.body };
-    res.status(200).json(friends);
+    res.status(200).json(req.body);
   } else {
     res
       .status(404)
@@ -97,8 +98,10 @@ app.put("/friends/:id", (req, res) => {
   }
 });
 
-app.delete("/friends/:id", (req, res) => {
-  friends = friends.filter(friend => friend.id != req.params.id);
+// Can't get delete to work. From what I can tell, req.body is empty, even though I (think I) am passing in the id of the friend to delete:
+app.delete("/friends", (req, res) => {
+  const id = req.body.id;
+  friends = friends.filter(friend => friend.id != id);
   res.status(200).json(friends);
 });
 

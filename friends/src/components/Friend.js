@@ -8,7 +8,10 @@ export const Friend = ({ friend, editFriend, deleteFriend, history }) => {
         <button onClick={() => editFriend(friend.id, history)}>
           Edit Friend
         </button>
-        <i onClick={deleteFriend} className="fas fa-user-times" />
+        <i
+          onClick={() => deleteFriend(friend.id, history)}
+          className="fas fa-user-times"
+        />
       </div>
       <p>Age: {friend.age}</p>
       <p>Email: {friend.email}</p>
