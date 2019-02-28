@@ -109,18 +109,19 @@ class App extends Component {
     history.push("/friendslist");
   };
 
-  deleteFriend = (id, history) => {
-    // Figured out how to pass in the id properly:
+  deleteFriend = id => {
+    // I figured out how to pass in the id properly:
     axios
       .delete("http://localhost:5000/friends", { data: { id: id } })
       .then(res => {
-        console.log(res);
+        this.setState({
+          friends: res.data
+        });
       })
       .catch(err => {
         console.log(err);
       });
-    // I can't get the page to reload upon delete, so the deleted friend just hangs out...
-    history.push("/friendslist");
+    // Now that I setState properly in the .then() above, I don't need to refresh the page. I get React's rerender for free (I'm a genius!).
   };
 
   render() {
