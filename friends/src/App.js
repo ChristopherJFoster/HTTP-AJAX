@@ -20,7 +20,8 @@ class App extends Component {
         color: "",
         favefood: "",
         quotation: ""
-      }
+      },
+      error: ""
     };
   }
 
@@ -60,7 +61,8 @@ class App extends Component {
     history.push("/addfriendform");
   };
 
-  submitFriend = history => {
+  submitFriend = (e, history) => {
+    e.preventDefault();
     axios
       .post("http://localhost:5000/friends", {
         id: uuid.v4(),
@@ -72,10 +74,12 @@ class App extends Component {
         quotation: this.state.potentialFriendChanges.quotation
       })
       .then(res => {
-        console.log(res);
+        this.setState({
+          friends: res.data
+        });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ error: err });
       });
     history.push("/friendslist");
   };
@@ -89,22 +93,30 @@ class App extends Component {
     history.push("/editfriendform");
   };
 
-  submitFriendEdits = history => {
+  submitFriendEdits = (e, history) => {
+    e.preventDefault();
+    // My add/edit friend forms do not require the age field. The following allows age to be stored as a number if present, but as an empty string if not present (null causes error messages). There are probably eighteen other ways to solve this "problem", but I went with this one:
+    let age;
+    this.state.potentialFriendChanges.age
+      ? (age = parseInt(this.state.potentialFriendChanges.age, 10))
+      : (age = "");
     axios
       .put("http://localhost:5000/friends", {
         id: this.state.potentialFriendChanges.id,
         name: this.state.potentialFriendChanges.name,
-        age: parseInt(this.state.potentialFriendChanges.age, 10),
+        age: age,
         email: this.state.potentialFriendChanges.email,
         color: this.state.potentialFriendChanges.color,
         favefood: this.state.potentialFriendChanges.favefood,
         quotation: this.state.potentialFriendChanges.quotation
       })
       .then(res => {
-        console.log(res);
+        this.setState({
+          friends: res.data
+        });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ error: err });
       });
     history.push("/friendslist");
   };
@@ -119,7 +131,7 @@ class App extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ error: err });
       });
     // Now that I setState properly in the .then() above, I don't need to refresh the page. I get React's rerender for free (I'm a genius!).
   };

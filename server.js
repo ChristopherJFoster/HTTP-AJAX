@@ -90,7 +90,7 @@ app.put("/friends", (req, res) => {
 
   if (friendIndex >= 0) {
     friends[friendIndex] = { ...friends[friendIndex], ...req.body };
-    res.status(200).json(req.body);
+    res.status(200).json(friends);
   } else {
     res
       .status(404)

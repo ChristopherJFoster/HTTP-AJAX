@@ -8,7 +8,7 @@ export const EditFriendForm = ({
   history
 }) => {
   return (
-    <form onSubmit={() => submitFriendEdits(history)}>
+    <form onSubmit={e => submitFriendEdits(e, history)}>
       <input
         required
         type="text"
