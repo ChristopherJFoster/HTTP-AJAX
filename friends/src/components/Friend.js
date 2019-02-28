@@ -4,18 +4,17 @@ import styled from "styled-components";
 const FriendDiv = styled.div`
   display: flex;
   flex-direction: column;
-  border: 2px solid teal;
   border-radius: 5px;
-  margin: 2%;
-  padding: 10px;
-  width: 43%;
-  background: #e6fff7;
+  margin: 1%;
+  padding: 10px 10px 0 10px;
+  flex: 1 1 43%;
+  background: #ccffef;
 `;
 
 const FriendHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   font-size: 3em;
   background: #66ffcc;
   color: teal;
@@ -30,7 +29,7 @@ const ControlsDiv = styled.div`
 const EditButton = styled.button`
   font-size: 0.3em;
   font-weight: bold;
-  margin-bottom: 7px;
+  margin-left: 10px;
   padding: 5px 7px 4px 7px;
   background: #00b3b3;
   color: white;
@@ -41,7 +40,7 @@ const EditButton = styled.button`
 
 const IconDiv = styled.div`
   font-size: 0.5em;
-  margin: 0 0 7px 14px;
+  margin-left: 14px;
   color: red;
   cursor: pointer;
 `;
