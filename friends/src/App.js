@@ -63,11 +63,15 @@ class App extends Component {
 
   submitFriend = (e, history) => {
     e.preventDefault();
+    let age;
+    this.state.potentialFriendChanges.age
+      ? (age = parseInt(this.state.potentialFriendChanges.age, 10))
+      : (age = "");
     axios
       .post("http://localhost:5000/friends", {
         id: uuid.v4(),
         name: this.state.potentialFriendChanges.name,
-        age: parseInt(this.state.potentialFriendChanges.age, 10),
+        age: age,
         email: this.state.potentialFriendChanges.email,
         color: this.state.potentialFriendChanges.color,
         favefood: this.state.potentialFriendChanges.favefood,
