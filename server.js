@@ -98,10 +98,9 @@ app.put("/friends", (req, res) => {
   }
 });
 
-// Can't get delete to work. From what I can tell, req.body is empty, even though I (think I) am passing in the id of the friend to delete:
+// I got the delete to work. I wasn't passing in the id correctly in App.js:
 app.delete("/friends", (req, res) => {
-  const id = req.body.id;
-  friends = friends.filter(friend => friend.id != id);
+  friends = friends.filter(friend => friend.id != req.body.id);
   res.status(200).json(friends);
 });
 

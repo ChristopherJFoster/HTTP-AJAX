@@ -110,17 +110,16 @@ class App extends Component {
   };
 
   deleteFriend = (id, history) => {
-    console.log(id);
+    // Figured out how to pass in the id properly:
     axios
-      .delete("http://localhost:5000/friends", {
-        id: id
-      })
+      .delete("http://localhost:5000/friends", { data: { id: id } })
       .then(res => {
         console.log(res);
       })
       .catch(err => {
         console.log(err);
       });
+    // I can't get the page to reload upon delete, so the deleted friend just hangs out...
     history.push("/friendslist");
   };
 
