@@ -5,7 +5,6 @@ import { FriendsList } from "./components/FriendsList";
 import { AddFriendForm } from "./components/AddFriendForm";
 import { EditFriendForm } from "./components/EditFriendForm";
 import uuid from "uuid";
-import "./App.css";
 
 // Used a combination of this declaration and the spread operator throughout the file to minimize seeing this empty list:
 const emptyFriend = {
