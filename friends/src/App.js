@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Redirect } from "react-router-dom";
 import { FriendsList } from "./components/FriendsList";
-import { NewFriendForm } from "./components/NewFriendForm";
+import { AddFriendForm } from "./components/AddFriendForm";
 import { EditFriendForm } from "./components/EditFriendForm";
 import uuid from "uuid";
 import "./App.css";
@@ -44,7 +44,23 @@ class App extends Component {
     });
   };
 
-  addNewFriend = () => {
+  addFriend = history => {
+    const tempData = {
+      id: "",
+      name: "",
+      age: "",
+      email: "",
+      color: "",
+      favefood: "",
+      quotation: ""
+    };
+    this.setState({
+      potentialFriendChanges: tempData
+    });
+    history.push("/addfriendform");
+  };
+
+  submitNewFriend = () => {
     axios
       .post("http://localhost:5000/friends", {
         id: uuid.v4(),
@@ -71,6 +87,8 @@ class App extends Component {
     history.push("/editfriendform");
   };
 
+  submitFriendEdits = () => {};
+
   render() {
     return (
       <div className="App">
@@ -86,18 +104,20 @@ class App extends Component {
             <FriendsList
               {...routeProps}
               friends={this.state.friends}
+              addFriend={this.addFriend}
               editFriend={this.editFriend}
+              deleteFriend={this.deleteFriend}
             />
           )}
         />
         <Route
-          path="/newfriendform"
+          path="/addfriendform"
           render={routeProps => (
-            <NewFriendForm
+            <AddFriendForm
               {...routeProps}
               potentialFriendChanges={this.state.potentialFriendChanges}
               handleChanges={this.handleChanges}
-              addNewFriend={this.addNewFriend}
+              submitNewFriend={this.submitNewFriend}
             />
           )}
         />

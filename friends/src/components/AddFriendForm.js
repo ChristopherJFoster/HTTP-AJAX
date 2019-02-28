@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const NewFriendForm = ({
+export const AddFriendForm = ({
   potentialFriendChanges,
   handleChanges,
-  addNewFriend
+  addFriend
 }) => {
   return (
-    <form onSubmit={addNewFriend}>
+    <form onSubmit={addFriend}>
       <input
         required
         type="text"
@@ -51,8 +51,8 @@ export const NewFriendForm = ({
         onChange={handleChanges}
         placeholder="quotation"
       />
-      <button className="add-new-friend" type="submit">
-        Add New Friend
+      <button className="add-friend" type="submit">
+        Add Friend
       </button>
       <Link to="/friendslist">Back to List of Friends</Link>
     </form>
