@@ -3,13 +3,23 @@ import axios from "axios";
 import { Route, Redirect } from "react-router-dom";
 import { FriendsList } from "./components/FriendsList";
 import { NewFriendForm } from "./components/NewFriendForm";
+import uuid from "uuid";
 import "./App.css";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      friends: []
+      friends: [],
+      potentialNewFriend: {
+        id: "",
+        name: "",
+        age: "",
+        email: "",
+        color: "",
+        favefood: "",
+        quotation: ""
+      }
     };
   }
 
@@ -24,7 +34,33 @@ class App extends Component {
       });
   }
 
-  addNewFriend = () => {};
+  handleChanges = e => {
+    e.preventDefault();
+    let tempData = this.state.potentialNewFriend;
+    tempData[e.target.name] = e.target.value;
+    this.setState({
+      potentialNewFriend: tempData
+    });
+  };
+
+  addNewFriend = () => {
+    axios
+      .post("http://localhost:5000/friends", {
+        id: uuid.v4(),
+        name: this.state.potentialNewFriend.name,
+        age: parseInt(this.state.potentialNewFriend.age, 10),
+        email: this.state.potentialNewFriend.email,
+        color: this.state.potentialNewFriend.color,
+        favefood: this.state.potentialNewFriend.favefood,
+        quotation: this.state.potentialNewFriend.quotation
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   render() {
     return (
@@ -44,7 +80,12 @@ class App extends Component {
         <Route
           path="/newfriendform"
           render={routeProps => (
-            <NewFriendForm {...routeProps} addNewFriend={this.addNewFriend} />
+            <NewFriendForm
+              {...routeProps}
+              potentialNewFriend={this.state.potentialNewFriend}
+              handleChanges={this.handleChanges}
+              addNewFriend={this.addNewFriend}
+            />
           )}
         />
       </div>
