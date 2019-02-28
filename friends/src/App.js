@@ -7,20 +7,23 @@ import { EditFriendForm } from "./components/EditFriendForm";
 import uuid from "uuid";
 import "./App.css";
 
+// Used a combination of this declaration and the spread operator throughout the file to minimize seeing this empty list:
+const emptyFriend = {
+  id: "",
+  name: "",
+  age: "",
+  email: "",
+  color: "",
+  favefood: "",
+  quotation: ""
+};
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
       friends: [],
-      potentialFriendChanges: {
-        id: "",
-        name: "",
-        age: "",
-        email: "",
-        color: "",
-        favefood: "",
-        quotation: ""
-      },
+      potentialFriendChanges: emptyFriend,
       error: ""
     };
   }
@@ -46,15 +49,7 @@ class App extends Component {
   };
 
   addFriend = history => {
-    const tempData = {
-      id: "",
-      name: "",
-      age: "",
-      email: "",
-      color: "",
-      favefood: "",
-      quotation: ""
-    };
+    const tempData = emptyFriend;
     this.setState({
       potentialFriendChanges: tempData
     });
@@ -63,20 +58,14 @@ class App extends Component {
 
   submitFriend = (e, history) => {
     e.preventDefault();
+    const id = uuid.v4();
     let age;
     this.state.potentialFriendChanges.age
       ? (age = parseInt(this.state.potentialFriendChanges.age, 10))
       : (age = "");
+    let friendChanges = { ...this.state.potentialFriendChanges, id, age };
     axios
-      .post("http://localhost:5000/friends", {
-        id: uuid.v4(),
-        name: this.state.potentialFriendChanges.name,
-        age: age,
-        email: this.state.potentialFriendChanges.email,
-        color: this.state.potentialFriendChanges.color,
-        favefood: this.state.potentialFriendChanges.favefood,
-        quotation: this.state.potentialFriendChanges.quotation
-      })
+      .post("http://localhost:5000/friends", { friendChanges })
       .then(res => {
         this.setState({
           friends: res.data
@@ -104,16 +93,10 @@ class App extends Component {
     this.state.potentialFriendChanges.age
       ? (age = parseInt(this.state.potentialFriendChanges.age, 10))
       : (age = "");
+    let friendChanges = { ...this.state.potentialFriendChanges, age };
+
     axios
-      .put("http://localhost:5000/friends", {
-        id: this.state.potentialFriendChanges.id,
-        name: this.state.potentialFriendChanges.name,
-        age: age,
-        email: this.state.potentialFriendChanges.email,
-        color: this.state.potentialFriendChanges.color,
-        favefood: this.state.potentialFriendChanges.favefood,
-        quotation: this.state.potentialFriendChanges.quotation
-      })
+      .put("http://localhost:5000/friends", { friendChanges })
       .then(res => {
         this.setState({
           friends: res.data
@@ -128,7 +111,7 @@ class App extends Component {
   deleteFriend = id => {
     // I figured out how to pass in the id properly:
     axios
-      .delete("http://localhost:5000/friends", { data: { id: id } })
+      .delete("http://localhost:5000/friends", { data: { id } })
       .then(res => {
         this.setState({
           friends: res.data
