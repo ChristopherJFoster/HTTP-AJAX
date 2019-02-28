@@ -9,7 +9,7 @@ export const Friend = ({ friend, editFriend, deleteFriend, history }) => {
           Edit Friend
         </button>
         <i
-          onClick={() => deleteFriend(history)}
+          onClick={() => deleteFriend(friend.id)}
           className="fas fa-user-times"
         />
       </div>
