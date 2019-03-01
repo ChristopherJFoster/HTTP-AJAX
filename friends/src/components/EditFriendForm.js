@@ -1,5 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledForm = styled.form`
+  margin-top: 1%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 1% 0;
+`;
+
+const StyledInput = styled.input`
+  width: 50%;
+  font-size: 1.2em;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding: 2px 0 2px 5px;
+`;
+
+const SubmitFriendEditsButton = styled.button`
+  font-size: 1.3em;
+  font-weight: bold;
+  width: 240px;
+  margin: 10px;
+  padding: 5px 7px 4px 7px;
+  background: #00b3b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const FriendsListButton = styled.button`
+  font-size: 1.3em;
+  font-weight: bold;
+  width: 240px;
+  margin: 10px;
+  padding: 5px 7px 4px 7px;
+  background: #1affb2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 export const EditFriendForm = ({
   potentialFriendChanges,
@@ -8,8 +52,8 @@ export const EditFriendForm = ({
   history
 }) => {
   return (
-    <form onSubmit={e => submitFriendEdits(e, history)}>
-      <input
+    <StyledForm onSubmit={e => submitFriendEdits(e, history)}>
+      <StyledInput
         required
         type="text"
         value={potentialFriendChanges.name}
@@ -17,45 +61,49 @@ export const EditFriendForm = ({
         onChange={handleChanges}
         placeholder="name"
       />
-      <input
+      <StyledInput
         type="number"
         value={potentialFriendChanges.age}
         name="age"
         onChange={handleChanges}
         placeholder="age (shh...)"
       />
-      <input
+      <StyledInput
         type="text"
         value={potentialFriendChanges.email}
         name="email"
         onChange={handleChanges}
         placeholder="email address"
       />
-      <input
+      <StyledInput
         type="text"
         value={potentialFriendChanges.color}
         name="color"
         onChange={handleChanges}
         placeholder="color"
       />
-      <input
+      <StyledInput
         type="text"
         value={potentialFriendChanges.favefood}
         name="favefood"
         onChange={handleChanges}
         placeholder="favorite food"
       />
-      <input
+      <StyledInput
         type="text"
         value={potentialFriendChanges.quotation}
         name="quotation"
         onChange={handleChanges}
         placeholder="quotation"
       />
-      <button className="edit-friend" type="submit">
+      <SubmitFriendEditsButton type="submit">
         Submit Friend Edits
-      </button>
-      <Link to="/friendslist">Back to List of Friends</Link>
-    </form>
+      </SubmitFriendEditsButton>
+      <Link to="/friendslist">
+        <FriendsListButton type="submit">
+          Back to List of Friends
+        </FriendsListButton>
+      </Link>
+    </StyledForm>
   );
 };

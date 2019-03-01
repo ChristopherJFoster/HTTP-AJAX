@@ -64,7 +64,7 @@ class App extends Component {
       : (age = "");
     let friendChanges = { ...this.state.potentialFriendChanges, id, age };
     axios
-      .post("http://localhost:5000/friends", { friendChanges })
+      .post("http://localhost:5000/friends", friendChanges)
       .then(res => {
         this.setState({
           friends: res.data
@@ -95,7 +95,7 @@ class App extends Component {
     let friendChanges = { ...this.state.potentialFriendChanges, age };
 
     axios
-      .put("http://localhost:5000/friends", { friendChanges })
+      .put("http://localhost:5000/friends", friendChanges)
       .then(res => {
         this.setState({
           friends: res.data
